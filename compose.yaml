@@ -1,0 +1,42 @@
+name: retailflow
+
+services:
+  source-db:
+    image: postgres:17
+    container_name: retailflow-source
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: retail
+      POSTGRES_PASSWORD: retail_dev_2026
+      POSTGRES_DB: retail_source
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - source_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U retail -d retail_source"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  warehouse-db:
+    image: postgres:17
+    container_name: retailflow-warehouse
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: retail
+      POSTGRES_PASSWORD: retail_dev_2026
+      POSTGRES_DB: retail_warehouse
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - warehouse_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U retail -d retail_warehouse"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  source_pgdata:
+  warehouse_pgdata:
