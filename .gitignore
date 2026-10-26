@@ -1,0 +1,21 @@
+# Environment
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Raw datasets
+data/raw/
+data/archive/
+data/generated/
+
+# Logs
+logs/
+*.log
+
+# Local configuration
+.vscode/
+.idea/
